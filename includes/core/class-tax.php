@@ -48,9 +48,10 @@ class EUVI_Tax {
 			$country_repo = new EUVI_Country_Repository();
 			$euvi_country = $country_repo->get_country_by_code( $country );
 			$category_id = intval( get_option('euvi_category' ) );
+			$type_id = intval( get_option('euvi_type' ) );
 
 			$rate_calc = new EUVI_Rate();
-			$rate = $rate_calc->get_rate( $category_id, $euvi_country['id'] );
+			$rate = $rate_calc->get_rate( $category_id, $euvi_country['id'], $type_id );
 
 			$new_tax_rates[1] = array(
 				'rate' => $rate->rate,

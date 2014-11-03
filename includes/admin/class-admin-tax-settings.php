@@ -10,6 +10,10 @@ class EUVI_Admin_Tax_Settings {
 		$categories[0] = 'Select your category';
 		$categories = array_merge( $categories, $category_repo->get_categories() );
 
+		$type_repo = new EUVI_Type_Repository();
+		$types[0] = 'Select your type';
+		$types = array_merge( $types, $type_repo->get_types() );
+
 		$settings_array = array(
 			1 => array(
 				'id' => 'euvi_enabled',
@@ -29,9 +33,16 @@ class EUVI_Admin_Tax_Settings {
 				'desc' => 'The category that should be used to determine tax rates for your products.',
 				'type' => 'select',
 				'options' => $categories,
+			),
+			4 => array(
+				'id' => 'euvi_type',
+				'title' => 'EU VAT Info type',
+				'desc' => 'The type that should be used to determine tax rates for your products.',
+				'type' => 'select',
+				'options' => $types,
 			)
 		);
 
-		return array_merge( array_slice($settings, 0, 2, true), $settings_array, array_slice($settings, 2, count($settings)-2, false) );
+		return array_merge( array_slice($settings, 0, 3, true), $settings_array, array_slice($settings, 3, count($settings)-3, false) );
 	}
 }
