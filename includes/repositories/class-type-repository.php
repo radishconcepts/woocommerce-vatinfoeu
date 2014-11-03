@@ -3,9 +3,15 @@
 class EUVI_Type_Repository extends EUVI_Abstract_Repository {
 	private $types = array();
 
+	public function __construct() {
+		$this->id = 'types';
+	}
+
 	public function get_types() {
 		if ( empty( $this->types ) ) {
-			$this->types = $this->query_types();
+			if ( false === $this->types = $this->get_data() ) {
+				$this->types = $this->query_types();
+			}
 		}
 
 		return $this->types;
@@ -23,6 +29,8 @@ class EUVI_Type_Repository extends EUVI_Abstract_Repository {
 				$return_array[ $type->id ] = $type->name;
 			}
 		}
+
+		$this->save_data($return_array);
 
 		return $return_array;
 	}
