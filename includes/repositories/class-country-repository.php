@@ -3,9 +3,15 @@
 class EUVI_Country_Repository extends EUVI_Abstract_Repository {
 	private $countries = array();
 
+	public function __construct() {
+		$this->id = 'countries';
+	}
+
 	public function get_countries() {
 		if ( empty( $this->countries ) ) {
-			$this->countries = $this->query_countries();
+			if ( false === $this->countries = $this->get_data() ) {
+				$this->countries = $this->query_countries();
+			}
 		}
 
 		return $this->countries;
@@ -41,6 +47,8 @@ class EUVI_Country_Repository extends EUVI_Abstract_Repository {
 				);
 			}
 		}
+
+		$this->save_data($return_array);
 
 		return $return_array;
 	}

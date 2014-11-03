@@ -3,9 +3,15 @@
 class EUVI_Category_Repository extends EUVI_Abstract_Repository {
 	private $categories = array();
 
+	public function __construct() {
+		$this->id = 'categories';
+	}
+
 	public function get_categories() {
 		if ( empty( $this->categories ) ) {
-			$this->categories = $this->query_categories();
+			if ( false === $this->categories = $this->get_data() ) {
+				$this->categories = $this->query_categories();
+			}
 		}
 
 		return $this->categories;
@@ -23,6 +29,8 @@ class EUVI_Category_Repository extends EUVI_Abstract_Repository {
 				$return_array[ $category->id ] = $category->name;
 			}
 		}
+
+		$this->save_data($return_array);
 
 		return $return_array;
 	}
