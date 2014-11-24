@@ -4,19 +4,12 @@
  * Plugin Name: EU VAT Info
  * Author: Radish Concepts
  * Author URI: http://www.radishconcepts.com
- * Version: 1.0-very-beta
+ * Version: 0.1
  */
 
-add_action( 'plugins_loaded', 'euvi_load' );
-
-function euvi_load() {
-	// Load PHP 5.2 compatible autoloader if required
-	if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-		include('vendor/autoload.php');
-	} else {
-		include('vendor/autoload_52.php');
-	}
-
-	// Setup the core class instance
-	new EU_VAT_Info();
+if ( ! class_exists( 'Radish_Autoload_Tester' ) ) {
+	include( 'vendor/radishconcepts/radish-autoload-tester/classes/radish-autoload-tester.php' );
 }
+
+$autoloader = new Radish_Autoload_Tester( 'EU_VAT_Info' );
+new EU_VAT_Info();
