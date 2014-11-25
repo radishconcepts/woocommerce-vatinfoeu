@@ -32,7 +32,7 @@ class EUVI_Country_Repository extends EUVI_Abstract_Repository {
 	}
 
 	private function query_countries() {
-		$handler = new EUVI_API_Handler();
+		$handler = new EUVI_WC_API_Handler();
 		$data = $handler->handle_request( 'countries', array() );
 		$return_array = array();
 
