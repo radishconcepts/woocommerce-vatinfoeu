@@ -8,11 +8,17 @@ class EUVI_Admin_Tax_Settings {
 	public function tax_settings( $settings ) {
 		$category_repo = new EUVI_Category_Repository();
 		$categories[0] = 'Select your category';
-		$categories = array_merge( $categories, $category_repo->get_categories() );
+
+		foreach ( $category_repo->get_categories() as $category ) {
+			$categories[ $category->id ] = $category->name;
+		}
 
 		$type_repo = new EUVI_Type_Repository();
 		$types[0] = 'Select your type';
-		$types = array_merge( $types, $type_repo->get_types() );
+
+		foreach ( $type_repo->get_types() as $type ) {
+			$types[ $type->id ] = $type->name;
+		}
 
 		$settings_array = array(
 			1 => array(

@@ -26,7 +26,7 @@ class EUVI_Category_Repository extends EUVI_Abstract_Repository {
 			$categories = json_decode( $data['body'] )->data;
 
 			foreach ( $categories as $category ) {
-				$return_array[ $category->id ] = $category->name;
+				$return_array[] = $category;
 			}
 		}
 
