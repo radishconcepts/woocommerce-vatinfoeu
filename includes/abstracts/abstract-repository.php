@@ -9,7 +9,7 @@ abstract class EUVI_Abstract_Repository {
 			return false;
 		}
 
-		if ( ! isset( $data['response']['code'] ) || 200 !== $data['response']['code'] ) {
+		if ( ! isset( $data['response']['code'] ) || '200' !== $data['response']['code'] ) {
 			return false;
 		}
 
