@@ -3,26 +3,26 @@
 class EUVI_Rate_Repository extends EUVI_Abstract_Repository {
 	private $rates = array();
 
-	public function __construct() {
-		$this->id = 'rates';
-	}
-
-	public function get_rates($country_id, $category_id) {
-		$this->id = 'rates_'.$country_id.'_'.$category_id;
+	public function get_rates( $category_id, $country_id, $type_id ) {
+		$this->id = 'rates_' . $category_id . '_' . $country_id . '_' . $type_id;
 
 		if ( empty( $this->rates ) ) {
 			if ( false === $this->rates = $this->get_data() ) {
-				$this->rates = $this->query_rates($country_id, $category_id);
+				$this->rates = $this->query_rates( $category_id, $country_id, $type_id );
 			}
 		}
 
 		return $this->rates;
 	}
 
-	private function query_rates($country_id, $category_id) {
-		$handler = new EUVI_API_Handler();
-		$endpoint = 'rate?country='.$country_id.'&category='.$category_id;
-		$data = $handler->handle_request( $endpoint, array() );
+	private function query_rates( $category_id, $country_id, $type_id ) {
+		$handler = new EUVI_WC_API_Handler();
+		$data = $handler->handle_request( 'rate', array(
+			'category' => intval( $category_id ),
+			'country' => intval( $country_id ),
+			'type' => intval( $type_id ),
+		) );
+
 		$return_array = array();
 
 		if ( $this->is_ok_response( $data ) ) {

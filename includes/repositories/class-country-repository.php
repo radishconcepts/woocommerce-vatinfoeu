@@ -22,9 +22,11 @@ class EUVI_Country_Repository extends EUVI_Abstract_Repository {
 			$this->countries = $this->query_countries();
 		}
 
-		foreach ( $this->countries as $country ) {
-			if ( $code == $country['code'] ) {
-				return $country;
+		foreach ( $this->countries as $country_key => $country ) {
+			foreach ( $country->codes as $country_code ) {
+				if ( $code == $country_code ) {
+					return $this->countries[ $country_key ];
+				}
 			}
 		}
 

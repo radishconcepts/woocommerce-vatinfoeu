@@ -18,7 +18,7 @@ class EUVI_Type_Repository extends EUVI_Abstract_Repository {
 	}
 
 	private function query_types() {
-		$handler = new EUVI_API_Handler();
+		$handler = new EUVI_WC_API_Handler();
 		$data = $handler->handle_request( 'types', array() );
 		$return_array = array();
 
@@ -26,7 +26,7 @@ class EUVI_Type_Repository extends EUVI_Abstract_Repository {
 			$types = json_decode( $data['body'] )->data;
 
 			foreach ( $types as $type ) {
-				$return_array[ $type->id ] = $type->name;
+				$return_array[ $type->id ] = $type;
 			}
 		}
 
