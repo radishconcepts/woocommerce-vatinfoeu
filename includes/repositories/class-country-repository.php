@@ -40,11 +40,7 @@ class EUVI_Country_Repository extends EUVI_Abstract_Repository {
 			$countries = json_decode( $data['body'] )->data;
 
 			foreach ( $countries as $country ) {
-				$return_array[] = array(
-					'id' => $country->id,
-					'name' => $country->name,
-					'code' => $country->codes->alpha_2,
-				);
+				$return_array[] = $country;
 			}
 		}
 
