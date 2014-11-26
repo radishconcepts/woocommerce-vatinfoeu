@@ -18,7 +18,7 @@ class EUVI_Category_Repository extends EUVI_Abstract_Repository {
 	}
 
 	private function query_categories() {
-		$handler = new EUVI_API_Handler();
+		$handler = new EUVI_WC_API_Handler();
 		$data = $handler->handle_request( 'categories', array() );
 		$return_array = array();
 
