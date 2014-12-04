@@ -31,7 +31,7 @@ class EUVI_Tax {
 			$type_id = intval( get_option('euvi_type' ) );
 
 			$rate_calc = new EUVI_Rate();
-			$rate = $rate_calc->get_rate( $category_id, $euvi_country->id, $type_id );
+			$rate = $rate_calc->get_rate( $euvi_country->id, $type_id, $category_id );
 
 			$new_tax_rates[1] = array(
 				'rate' => $rate->rate,

@@ -1,9 +1,9 @@
 <?php
 
 class EUVI_Rate {
-	public function get_rate( $category_id, $country_id, $type_id ) {
+	public function get_rate( $country_id, $type_id, $category_id ) {
 		$repository = new EUVI_Rate_Repository();
-		$rates = $repository->get_rates( $category_id, $country_id, $type_id );
+		$rates = $repository->get_rates( $country_id, $type_id, $category_id );
 
 		$highest_rate_key = 0;
 
