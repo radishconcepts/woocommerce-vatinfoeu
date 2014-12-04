@@ -1,7 +1,7 @@
 <?php
 
 class EUVI_WC_API_Handler {
-	private $endpoint = 'http://local.api.vatinfo.eu/api/v1/';
+	private $endpoint = 'http://api.vatinfo.eu/api/v1/';
 
 	public function handle_request( $target, $params = array() ) {
 		$url = $this->generate_api_endpoint_url( $target, $params );
