@@ -1,5 +1,5 @@
 {
-	"name": "radishconcepts/woocommerce-euvatinfo",
+	"name": "radishconcepts/woocommerce-vatinfoeu",
 	"description": "Integrates the EU VAT API with your WooCommerce powered website",
 	"type": "wordpress-plugin",
 	"support"    : {
