@@ -7,7 +7,7 @@ class EUVI_Admin_Tax_Settings {
 
 	public function tax_settings( $settings ) {
 		$category_repo = new EUVI_Category_Repository();
-		$categories[0] = 'Select your category';
+		$categories[0] = 'Select your category (optional)';
 
 		foreach ( $category_repo->get_categories() as $category ) {
 			$categories[ $category->id ] = $category->name;
@@ -34,18 +34,18 @@ class EUVI_Admin_Tax_Settings {
 				'type' => 'text',
 			),
 			3 => array(
-				'id' => 'euvi_category',
-				'title' => 'EU VAT Info category',
-				'desc' => 'The category that should be used to determine tax rates for your products.',
-				'type' => 'select',
-				'options' => $categories,
-			),
-			4 => array(
 				'id' => 'euvi_type',
 				'title' => 'EU VAT Info type',
 				'desc' => 'The type that should be used to determine tax rates for your products.',
 				'type' => 'select',
 				'options' => $types,
+			),
+			4 => array(
+				'id' => 'euvi_category',
+				'title' => 'EU VAT Info category',
+				'desc' => 'The reduced rate category that should be used to determine tax rates for your products.',
+				'type' => 'select',
+				'options' => $categories,
 			)
 		);
 

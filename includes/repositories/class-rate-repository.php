@@ -3,15 +3,15 @@
 class EUVI_Rate_Repository extends EUVI_Abstract_Repository {
 	private $rates = array();
 
-	public function get_rates( $category_id, $country_id, $type_id = null ) {
+	public function get_rates( $country_id, $type_id, $category_id = null ) {
 		if ( empty( $this->rates ) ) {
-			$this->rates = $this->query_rates( $category_id, $country_id, $type_id );
+			$this->rates = $this->query_rates( $country_id, $type_id, $category_id );
 		}
 
 		return $this->rates;
 	}
 
-	private function query_rates( $category_id, $country_id, $type_id = null ) {
+	private function query_rates( $country_id, $type_id, $category_id = null ) {
 		$handler = new EUVI_WC_API_Handler();
 		$arguments = array(
 			'category' => intval( $category_id ),
