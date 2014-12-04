@@ -1,19 +1,19 @@
 <?php
 
-class EUVI_Admin_Tax_Settings {
+class VIEU_Admin_Tax_Settings {
 	public function __construct() {
 		add_filter( 'woocommerce_tax_settings', array( $this, 'tax_settings' ), 10, 1 );
 	}
 
 	public function tax_settings( $settings ) {
-		$category_repo = new EUVI_Category_Repository();
+		$category_repo = new VIEU_Category_Repository();
 		$categories[0] = 'Select your category (optional)';
 
 		foreach ( $category_repo->get_categories() as $category ) {
 			$categories[ $category->id ] = $category->name;
 		}
 
-		$type_repo = new EUVI_Type_Repository();
+		$type_repo = new VIEU_Type_Repository();
 		$types[0] = 'Select your type';
 
 		foreach ( $type_repo->get_types() as $type ) {

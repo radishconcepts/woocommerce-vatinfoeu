@@ -1,14 +1,14 @@
 <?php
 
-class EU_VAT_Info {
+class VAT_Info_EU {
 	public function __construct() {
 		if ( is_admin() ) {
 			add_action('init', array( $this, 'init' ) );
 
-			new EUVI_Admin_Tax_Settings();
+			new VIEU_Admin_Tax_Settings();
 		}
 
-		new EUVI_Tax();
+		new VIEU_Tax();
 	}
 
 	public function init() {

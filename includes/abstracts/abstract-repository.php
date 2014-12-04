@@ -1,6 +1,6 @@
 <?php
 
-abstract class EUVI_Abstract_Repository {
+abstract class VIEU_Abstract_Repository {
 	/** @var string */
 	protected $id;
 

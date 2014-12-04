@@ -1,6 +1,6 @@
 <?php
 
-class EUVI_Type_Repository extends EUVI_Abstract_Repository {
+class VIEU_Type_Repository extends VIEU_Abstract_Repository {
 	private $types = array();
 
 	public function __construct() {
@@ -18,7 +18,7 @@ class EUVI_Type_Repository extends EUVI_Abstract_Repository {
 	}
 
 	private function query_types() {
-		$handler = new EUVI_WC_API_Handler();
+		$handler = new VIEU_WC_API_Handler();
 		$data = $handler->handle_request( 'types', array() );
 		$return_array = array();
 

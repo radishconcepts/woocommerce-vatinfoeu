@@ -1,6 +1,6 @@
 <?php
 
-class EUVI_Category_Repository extends EUVI_Abstract_Repository {
+class VIEU_Category_Repository extends VIEU_Abstract_Repository {
 	private $categories = array();
 
 	public function __construct() {
@@ -18,7 +18,7 @@ class EUVI_Category_Repository extends EUVI_Abstract_Repository {
 	}
 
 	private function query_categories() {
-		$handler = new EUVI_WC_API_Handler();
+		$handler = new VIEU_WC_API_Handler();
 		$data = $handler->handle_request( 'categories', array() );
 		$return_array = array();
 
