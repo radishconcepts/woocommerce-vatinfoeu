@@ -13,9 +13,9 @@ class VAT_Info_EU {
 
 	public function init() {
 		$config = array(
-			'slug' => basename(EUVI_PLUGIN_FILE_PATH),
+			'slug' => basename(VIEU_PLUGIN_FILE_PATH),
 			'proper_folder_name' => 'woocommerce-euvatinfo',
-			'plugin_path' => EUVI_PLUGIN_FILE_PATH,
+			'plugin_path' => VIEU_PLUGIN_FILE_PATH,
 			'api_url' => 'https://api.github.com/repos/radishconcepts/woocommerce-euvatinfo',
 			'raw_url' => 'https://raw.github.com/radishconcepts/woocommerce-euvatinfo/master',
 			'github_url' => 'https://github.com/radishconcepts/woocommerce-euvatinfo',
