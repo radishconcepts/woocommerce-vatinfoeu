@@ -22,26 +22,26 @@ class VIEU_Admin_Tax_Settings {
 
 		$settings_array = array(
 			1 => array(
-				'id' => 'euvi_enabled',
+				'id' => 'vieu_enabled',
 				'title' => 'EU VAT Info enabled',
 				'desc' => 'Enable the tax rate calculation via the EU VAT Info API',
 				'type' => 'checkbox',
 				'default' => false,
 			),
 			2 => array(
-				'id' => 'euvi_api_key',
+				'id' => 'vieu_api_key',
 				'title' => 'EU VAT Info API key',
 				'type' => 'text',
 			),
 			3 => array(
-				'id' => 'euvi_type',
+				'id' => 'vieu_type',
 				'title' => 'EU VAT Info type',
 				'desc' => 'The type that should be used to determine tax rates for your products.',
 				'type' => 'select',
 				'options' => $types,
 			),
 			4 => array(
-				'id' => 'euvi_category',
+				'id' => 'vieu_category',
 				'title' => 'EU VAT Info category',
 				'desc' => 'The reduced rate category that should be used to determine tax rates for your products.',
 				'type' => 'select',

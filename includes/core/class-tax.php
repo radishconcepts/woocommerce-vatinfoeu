@@ -8,7 +8,7 @@ class VIEU_Tax {
 	}
 
 	public function rate_code( $code_string, $key ) {
-		if ( 'yes' !== get_option( 'euvi_enabled' ) ) {
+		if ( 'yes' !== get_option( 'vieu_enabled' ) ) {
 			return $code_string;
 		}
 
@@ -16,7 +16,7 @@ class VIEU_Tax {
 	}
 
 	public function option_tax_based_on( $value ) {
-		if ( 'yes' === get_option( 'euvi_enabled' ) ) {
+		if ( 'yes' === get_option( 'vieu_enabled' ) ) {
 			$value = 'shipping';
 		}
 
@@ -24,14 +24,14 @@ class VIEU_Tax {
 	}
 
 	public function matched_tax_rates( $matched_tax_rates, $country ) {
-		if ( 'yes' === get_option( 'euvi_enabled' ) ) {
+		if ( 'yes' === get_option( 'vieu_enabled' ) ) {
 			$country_repo = new VIEU_Country_Repository();
-			$euvi_country = $country_repo->get_country_by_code( $country );
-			$type_id = get_option('euvi_type' );
-			$category_id = get_option('euvi_category', null );
+			$vieu_country = $country_repo->get_country_by_code( $country );
+			$type_id = get_option('vieu_type' );
+			$category_id = get_option('vieu_category', null );
 
 			$rate_calc = new VIEU_Rate();
-			$rate = $rate_calc->get_rate( $euvi_country->id, $type_id, $category_id );
+			$rate = $rate_calc->get_rate( $vieu_country->id, $type_id, $category_id );
 
 			$new_tax_rates[1] = array(
 				'rate' => $rate->rate,

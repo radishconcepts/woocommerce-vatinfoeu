@@ -17,11 +17,11 @@ abstract class VIEU_Abstract_Repository {
 	}
 
 	protected function save_data( $data ) {
-		set_transient( 'euvi_' . $this->id . '_data', $data, DAY_IN_SECONDS );
+		set_transient( 'vieu_' . $this->id . '_data', $data, DAY_IN_SECONDS );
 	}
 
 	protected function get_data() {
-		$data = get_transient( 'euvi_' . $this->id . '_data' );
+		$data = get_transient( 'vieu_' . $this->id . '_data' );
 
 		if ( ! empty( $data ) ) {
 			return $data;

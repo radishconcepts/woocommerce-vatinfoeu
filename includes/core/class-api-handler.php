@@ -22,7 +22,7 @@ class VIEU_WC_API_Handler {
 
 	private function get_request( $url, $params ) {
 		$params['headers'] = array(
-			'X-Auth-Token' => get_option('euvi_api_key'),
+			'X-Auth-Token' => get_option('vieu_api_key'),
 		);
 		return wp_remote_get( $url, $params );
 	}
