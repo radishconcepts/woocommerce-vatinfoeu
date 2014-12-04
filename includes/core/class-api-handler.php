@@ -1,6 +1,6 @@
 <?php
 
-class EUVI_WC_API_Handler {
+class VIEU_WC_API_Handler {
 	private $endpoint = 'http://api.vatinfo.eu/api/v1/';
 
 	public function handle_request( $target, $params = array() ) {
@@ -22,7 +22,7 @@ class EUVI_WC_API_Handler {
 
 	private function get_request( $url, $params ) {
 		$params['headers'] = array(
-			'X-Auth-Token' => get_option('euvi_api_key'),
+			'X-Auth-Token' => get_option('vieu_api_key'),
 		);
 		return wp_remote_get( $url, $params );
 	}

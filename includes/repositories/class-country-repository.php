@@ -1,6 +1,6 @@
 <?php
 
-class EUVI_Country_Repository extends EUVI_Abstract_Repository {
+class VIEU_Country_Repository extends VIEU_Abstract_Repository {
 	private $countries = array();
 
 	public function __construct() {
@@ -34,7 +34,7 @@ class EUVI_Country_Repository extends EUVI_Abstract_Repository {
 	}
 
 	private function query_countries() {
-		$handler = new EUVI_WC_API_Handler();
+		$handler = new VIEU_WC_API_Handler();
 		$data = $handler->handle_request( 'countries', array() );
 		$return_array = array();
 

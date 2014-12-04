@@ -1,6 +1,6 @@
 <?php
 
-class EUVI_Rate_Repository extends EUVI_Abstract_Repository {
+class VIEU_Rate_Repository extends VIEU_Abstract_Repository {
 	private $rates = array();
 
 	public function get_rates( $country_id, $type_id, $category_id = null ) {
@@ -12,7 +12,7 @@ class EUVI_Rate_Repository extends EUVI_Abstract_Repository {
 	}
 
 	private function query_rates( $country_id, $type_id, $category_id = null ) {
-		$handler = new EUVI_WC_API_Handler();
+		$handler = new VIEU_WC_API_Handler();
 		$arguments = array(
 			'category' => intval( $category_id ),
 			'country' => intval( $country_id ),
