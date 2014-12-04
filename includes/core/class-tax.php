@@ -27,8 +27,8 @@ class EUVI_Tax {
 		if ( 'yes' === get_option( 'euvi_enabled' ) ) {
 			$country_repo = new EUVI_Country_Repository();
 			$euvi_country = $country_repo->get_country_by_code( $country );
-			$category_id = intval( get_option('euvi_category' ) );
-			$type_id = intval( get_option('euvi_type' ) );
+			$type_id = get_option('euvi_type' );
+			$category_id = get_option('euvi_category', null );
 
 			$rate_calc = new EUVI_Rate();
 			$rate = $rate_calc->get_rate( $euvi_country->id, $type_id, $category_id );
