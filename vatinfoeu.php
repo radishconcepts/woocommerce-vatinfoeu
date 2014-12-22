@@ -4,7 +4,7 @@
  * Plugin Name: VAT Info EU
  * Author: Radish Concepts
  * Author URI: http://www.radishconcepts.com
- * Version: 0.2
+ * Version: 0.3
  */
 
 if ( ! class_exists( 'Radish_Autoload_Tester' ) ) {
