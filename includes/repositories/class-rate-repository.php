@@ -5,12 +5,8 @@ class VIEU_Rate_Repository extends VIEU_Abstract_Repository {
 
 //	public function get_rates( $country_id, $type_id, $category_id = null ) {
 	public function get_rates( $country_id, $category_id = null ) {
-		if ( empty( $this->rates ) ) {
-			$this->rates = $this->query_rates( $country_id, $category_id );
+			return $this->query_rates( $country_id, $category_id );
 //			$this->rates = $this->query_rates( $country_id, $type_id, $category_id );
-		}
-
-		return $this->rates;
 	}
 
 	private function query_rates( $country_id, $category_id = null ) {
