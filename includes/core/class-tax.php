@@ -27,12 +27,10 @@ class VIEU_Tax {
 		if ( 'yes' === get_option( 'vieu_enabled' ) ) {
 			$country_repo = new VIEU_Country_Repository();
 			$vieu_country = $country_repo->get_country_by_code( $country );
-//			$type_id = get_option('vieu_type' );
 			$category_id = get_option('vieu_category', null );
 
 			$rate_calc = new VIEU_Rate();
 			$rate = $rate_calc->get_rate( $vieu_country->id, $category_id );
-//			$rate = $rate_calc->get_rate( $vieu_country->id, $type_id, $category_id );
 
 			$new_tax_rates[1] = array(
 				'rate' => $rate->rate,

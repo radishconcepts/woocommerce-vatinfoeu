@@ -1,10 +1,8 @@
 <?php
 
 class VIEU_Rate {
-//	public function get_rate( $country_id, $type_id, $category_id ) {
 	public function get_rate( $country_id, $category_id ) {
 		$repository = new VIEU_Rate_Repository();
-//		$rates = $repository->get_rates( $country_id, $type_id, $category_id );
 		$rates = $repository->get_rates( $country_id, $category_id );
 
 		$highest_rate_key = 0;

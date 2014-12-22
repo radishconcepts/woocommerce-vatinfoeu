@@ -1,12 +1,8 @@
 <?php
 
 class VIEU_Rate_Repository extends VIEU_Abstract_Repository {
-	private $rates = array();
-
-//	public function get_rates( $country_id, $type_id, $category_id = null ) {
 	public function get_rates( $country_id, $category_id = null ) {
 			return $this->query_rates( $country_id, $category_id );
-//			$this->rates = $this->query_rates( $country_id, $type_id, $category_id );
 	}
 
 	private function query_rates( $country_id, $category_id = null ) {
@@ -15,10 +11,6 @@ class VIEU_Rate_Repository extends VIEU_Abstract_Repository {
 			'category' => intval( $category_id ),
 			'country' => intval( $country_id ),
 		);
-
-//		if ( null !== $type_id ) {
-//			$arguments['type'] = intval( $type_id );
-//		}
 
 		$data = $handler->handle_request( 'rate', $arguments );
 
