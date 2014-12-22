@@ -17,19 +17,20 @@ class VIEU_Admin_Tax_Settings {
 			1 => array(
 				'id' => 'vieu_enabled',
 				'title' => 'EU VAT Info enabled',
-				'desc' => 'Enable the tax rate calculation via the EU VAT Info API',
+				'desc' => 'Enable the tax rate calculation via the EU VAT Info API for customers within the European Union.',
 				'type' => 'checkbox',
 				'default' => false,
 			),
 			2 => array(
 				'id' => 'vieu_api_key',
 				'title' => 'EU VAT Info API key',
+				'desc' => 'Enter your API key as provided when you ordered your subscription at <a href="http://vatinfo.eu">vatinfo.eu</a>.',
 				'type' => 'text',
 			),
 			3 => array(
 				'id' => 'vieu_category',
 				'title' => 'EU VAT Info category',
-				'desc' => 'The reduced rate category that should be used to determine tax rates for your products.',
+				'desc' => 'The rate category that should be used to determine tax rates for your products. If none specified, the standard rates of your customers country will be used.',
 				'type' => 'select',
 				'options' => $categories,
 			)
