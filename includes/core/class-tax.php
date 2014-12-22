@@ -27,6 +27,13 @@ class VIEU_Tax {
 		if ( 'yes' === get_option( 'vieu_enabled' ) ) {
 			$country_repo = new VIEU_Country_Repository();
 			$vieu_country = $country_repo->get_country_by_code( $country );
+
+			// This method will return false when country is not found in the API
+			// In most cases this means that a country is not within the EU.
+			if ( false === $vieu_country ) {
+				return $matched_tax_rates;
+			}
+
 			$category_id = get_option('vieu_category', null );
 
 			$rate_calc = new VIEU_Rate();
