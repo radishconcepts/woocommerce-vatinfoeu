@@ -1,7 +1,11 @@
 <?php
 
 class VIEU_WC_API_Handler {
-	private $endpoint = 'http://api.vatinfo.eu/api/v1/';
+	private $endpoint;
+
+	public function __construct() {
+		$this->endpoint = apply_filters( 'radish_api_euvi_url', 'http://api.vatinfo.eu/api/v1/' );
+	}
 
 	public function handle_request( $target, $params = array() ) {
 		$url = $this->generate_api_endpoint_url( $target, $params );
