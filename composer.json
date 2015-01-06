@@ -3,8 +3,8 @@
 	"description": "Integrates the EU VAT API with your WooCommerce powered website",
 	"type": "wordpress-plugin",
 	"support"    : {
-		"issues": "https://github.com/radishconcepts/woocommerce-euvatinfo/issues",
-		"source": "https://github.com/radishconcepts/woocommerce-euvatinfo"
+		"issues": "https://github.com/radishconcepts/woocommerce-euvatinfo-dev/issues",
+		"source": "https://github.com/radishconcepts/woocommerce-euvatinfo-dev"
 	},
 	"require": {
 		"xrstf/composer-php52": "1.*",
