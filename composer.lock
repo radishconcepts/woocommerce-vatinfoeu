@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b9243bd6a78b90fef06d0f8145593f30",
+    "hash": "926470d7297b93f6324bf7b4b2d6447e",
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.0.18",
+            "version": "v1.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "74fb0a7a1a23696d9c8cc2fba5903f6711cdd067"
+                "reference": "89d77bfbee79e16653f7162c86e602cc188471db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/74fb0a7a1a23696d9c8cc2fba5903f6711cdd067",
-                "reference": "74fb0a7a1a23696d9c8cc2fba5903f6711cdd067",
+                "url": "https://api.github.com/repos/composer/installers/zipball/89d77bfbee79e16653f7162c86e602cc188471db",
+                "reference": "89d77bfbee79e16653f7162c86e602cc188471db",
                 "shasum": ""
             },
             "replace": {
@@ -59,6 +59,7 @@
                 "Hurad",
                 "MODX Evo",
                 "OXID",
+                "Thelia",
                 "WolfCMS",
                 "agl",
                 "annotatecms",
@@ -68,9 +69,11 @@
                 "codeigniter",
                 "concrete5",
                 "croogo",
+                "dokuwiki",
                 "drupal",
                 "elgg",
                 "fuelphp",
+                "grav",
                 "installer",
                 "joomla",
                 "kohana",
@@ -94,48 +97,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2014-08-18 20:00:12"
-        },
-        {
-            "name": "radishconcepts/radish-autoload-tester",
-            "version": "0.1.0",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:radishconcepts/radish-autoload-tester.git",
-                "reference": "ac9d175ba4d822d463b07d5eca61f2cfefe321b3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/radishconcepts/radish-autoload-tester/zipball/ac9d175ba4d822d463b07d5eca61f2cfefe321b3",
-                "reference": "ac9d175ba4d822d463b07d5eca61f2cfefe321b3",
-                "shasum": ""
-            },
-            "require": {
-                "xrstf/composer-php52": "1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "classes"
-                ]
-            },
-            "scripts": {
-                "post-install-cmd": [
-                    "xrstf\\Composer52\\Generator::onPostInstallCmd"
-                ],
-                "post-update-cmd": [
-                    "xrstf\\Composer52\\Generator::onPostInstallCmd"
-                ],
-                "post-autoload-dump": [
-                    "xrstf\\Composer52\\Generator::onPostInstallCmd"
-                ]
-            },
-            "description": "For WordPress plugins that can have Composer autoloaders in their own folder, or in project root",
-            "support": {
-                "issues": "https://github.com/radishconcepts/radish-autoload-tester/issues",
-                "source": "https://github.com/radishconcepts/radish-autoload-tester"
-            },
-            "time": "2014-11-19 14:11:30"
+            "time": "2014-11-29 01:29:17"
         },
         {
             "name": "xrstf/composer-php52",
