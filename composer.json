@@ -6,16 +6,9 @@
 		"issues": "https://github.com/radishconcepts/woocommerce-euvatinfo/issues",
 		"source": "https://github.com/radishconcepts/woocommerce-euvatinfo"
 	},
-	"repositories": {
-		"radish-autoload-tester": {
-			"type": "vcs",
-			"url" : "git@github.com:radishconcepts/radish-autoload-tester.git"
-		}
-	},
 	"require": {
 		"xrstf/composer-php52": "1.*",
-		"composer/installers": "~1.0",
-		"radishconcepts/radish-autoload-tester": "0.1.*"
+		"composer/installers": "~1.0"
 	},
 	"scripts": {
 		"post-install-cmd": [
