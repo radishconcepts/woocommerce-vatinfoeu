@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Plugin Name: VAT Info EU
- * Description: Integrates the EU VAT API with your WooCommerce powered website
+ * Plugin Name: WooCommerce VAT Info EU
+ * Description: Integrates the vatinfo.eu API with your WooCommerce powered website
  * Author: Radish Concepts
  * Author URI: http://www.radishconcepts.com
  * Version: 0.3.1
