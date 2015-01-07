@@ -5,7 +5,7 @@
  * Description: Integrates the vatinfo.eu API with your WooCommerce powered website
  * Author: Radish Concepts
  * Author URI: http://www.radishconcepts.com
- * Version: 0.3.1
+ * Version: 0.3.2
  */
 
 if ( ! class_exists( 'VAT_Info_EU' ) ) {
