@@ -36,7 +36,7 @@ class VIEU_Admin_Tax_Settings {
 			3 => array(
 				'id' => 'vieu_category',
 				'title' => 'EU VAT Info category',
-				'desc' => 'The rate category that should be used to determine tax rates for your products. If none specified, the standard rates of your customers country will be used.',
+				'desc' => 'The rate category that should be used to determine tax rates for your products. If none specified, the standard rates of your customers country will be used. This list will only be populated when a valid API key is set.',
 				'type' => 'select',
 				'options' => $categories,
 			)
