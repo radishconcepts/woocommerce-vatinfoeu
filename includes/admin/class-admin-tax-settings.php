@@ -6,11 +6,17 @@ class VIEU_Admin_Tax_Settings {
 	}
 
 	public function tax_settings( $settings ) {
-		$category_repo = new VIEU_Category_Repository();
+		$api_key = get_option('vieu_api_key');
+
+		$categories = array();
 		$categories[0] = 'Select your category (optional)';
 
-		foreach ( $category_repo->get_categories() as $category ) {
-			$categories[ $category->id ] = $category->name;
+		if ( false !== $api_key && ! empty( $api_key ) ) {
+			$category_repo = new VIEU_Category_Repository();
+
+			foreach ( $category_repo->get_categories() as $category ) {
+				$categories[ $category->id ] = $category->name;
+			}
 		}
 
 		$settings_array = array(
