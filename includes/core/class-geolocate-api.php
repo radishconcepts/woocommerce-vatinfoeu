@@ -7,7 +7,11 @@ class VIEU_Geolocate_API {
 			'ip' => $ip,
 		) );
 
-		$data = json_decode( $data['body'] );
-		return $data['country'];
+		if ( ! is_wp_error( $data ) && $data['body'] ) {
+			$data = json_decode( $data['body'] );
+			return $data->country_code;
+		}
+
+		return false;
 	}
 }

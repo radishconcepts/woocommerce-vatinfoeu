@@ -9,6 +9,11 @@ class VIEU_Geolocate {
 		} else {
 			$ip_address = ! empty( $ip_address ) ? $ip_address : $this->get_ip_address();
 			$country_code = $this->geolocate_via_api( $ip_address );
+
+			// This might mean that we're in a local network. We need to get the external IP.
+			if ( false === $country_code ) {
+				return $this->geolocate_ip( $this->get_external_ip_address() );
+			}
 		}
 
 		return $country_code;
@@ -29,6 +34,27 @@ class VIEU_Geolocate {
 			set_transient( 'euvi_geoip_' . $ip_address, $country_code, WEEK_IN_SECONDS );
 		}
 
+		if ( empty( $country_code ) ) {
+			return false;
+		}
+
 		return $country_code;
+	}
+
+	private function get_external_ip_address() {
+		$transient_name      = 'external_ip_address_' . self::get_ip_address();
+		$external_ip_address = get_transient( $transient_name );
+
+		if ( false === $external_ip_address ) {
+			$response = wp_remote_get( 'http://bot.whatismyipaddress.com', array( 'timeout' => 2 ) );
+
+			if ( ! is_wp_error( $response ) && $response['body'] ) {
+				$external_ip_address = $response['body'];
+			}
+
+			set_transient( $transient_name, $external_ip_address, WEEK_IN_SECONDS );
+		}
+
+		return $external_ip_address;
 	}
 }

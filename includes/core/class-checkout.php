@@ -34,13 +34,15 @@ class WC_VIEU_Checkout {
 	}
 
 	public function checkout_process() {
-		if ( empty( $_POST['vat_number'] ) ) {
-			return;
-		}
-
 		$this->reset();
 
 		$taxed_country = WC()->customer->get_country();
+
+		$ip_country = $this->get_country_by_ip();
+
+		if ( empty( $_POST['vat_number'] ) ) {
+			return;
+		}
 
 		if ( $this->validate( wc_clean( $_POST['vat_number'] ), $taxed_country ) ) {
 			$this->set_vat_excempt();
@@ -105,6 +107,11 @@ class WC_VIEU_Checkout {
 
 		$validator = new VIEU_VAT_Validator();
 		return $validator->validate_vat($country_code, $vat_number);
+	}
+
+	private function get_country_by_ip() {
+		$geolocate = new VIEU_Geolocate();
+		return $geolocate->geolocate_ip();
 	}
 
 	private function reset() {
