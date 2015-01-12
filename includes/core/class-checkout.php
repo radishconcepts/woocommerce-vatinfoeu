@@ -59,20 +59,20 @@ class WC_VIEU_Checkout {
 
 		$taxed_country = WC()->customer->get_country();
 
-		$ip_country = $this->get_country_by_ip();
+		if ( ! empty( $_POST['vat_number'] ) ) {
+			if ( $this->validate( wc_clean( $_POST['vat_number'] ), $taxed_country ) ) {
+				$this->set_vat_excempt();
+			} else {
+				wc_add_notice( sprintf( 'The VAT number (%s) is invalid for your billing country.', $_POST['vat_number'] ), 'error' );
+			}
 
-		if ( $ip_country !== $taxed_country && empty( $_POST['location_confirmation'] ) ) {
-			wc_add_notice( 'Your IP Address does not match your billing country. Please confirm you are located within your billing country using the checkbox below.', 'error' );
-		}
-
-		if ( empty( $_POST['vat_number'] ) ) {
 			return;
-		}
-
-		if ( $this->validate( wc_clean( $_POST['vat_number'] ), $taxed_country ) ) {
-			$this->set_vat_excempt();
 		} else {
-			wc_add_notice( sprintf( 'The VAT number (%s) is invalid for your billing country.', $_POST['vat_number'] ), 'error' );
+			$ip_country = $this->get_country_by_ip();
+
+			if ( $ip_country !== $taxed_country && empty( $_POST['location_confirmation'] ) ) {
+				wc_add_notice( 'Your IP Address does not match your billing country. Please confirm you are located within your billing country using the checkbox below.', 'error' );
+			}
 		}
 	}
 
