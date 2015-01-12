@@ -2,14 +2,22 @@
 
 class VIEU_Tax {
 	public function __construct() {
-		$api_key = get_option('vieu_api_key');
+		if ( $this->active_and_valid_api_key() ) {
+			add_filter( 'woocommerce_rate_code', array( $this, 'rate_code' ), 10, 2 );
+			add_filter( 'pre_option_woocommerce_tax_based_on', array( $this, 'option_tax_based_on' ), 10, 1 );
+			add_filter( 'woocommerce_matched_tax_rates', array( $this, 'matched_tax_rates' ), 10, 2 );
+		}
+	}
+
+	private function active_and_valid_api_key() {
 		if ( 'yes' === get_option( 'vieu_enabled' ) ) {
+			$api_key = get_option('vieu_api_key');
 			if ( false !== $api_key && ! empty( $api_key ) ) {
-				add_filter( 'woocommerce_rate_code', array( $this, 'rate_code' ), 10, 2 );
-				add_filter( 'pre_option_woocommerce_tax_based_on', array( $this, 'option_tax_based_on' ), 10, 1 );
-				add_filter( 'woocommerce_matched_tax_rates', array( $this, 'matched_tax_rates' ), 10, 2 );
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	public function rate_code( $code_string, $key ) {
