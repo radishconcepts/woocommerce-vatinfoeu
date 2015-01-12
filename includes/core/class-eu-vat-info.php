@@ -6,10 +6,9 @@ class VAT_Info_EU {
 			add_action('init', array( $this, 'init' ) );
 
 			new VIEU_Admin_Tax_Settings();
-		} else {
-			new WC_VIEU_Checkout();
 		}
 
+		new WC_VIEU_Checkout();
 		new VIEU_Tax();
 	}
 
