@@ -10,6 +10,7 @@ class WC_VIEU_Checkout {
 		add_action( 'woocommerce_after_checkout_billing_form', array( $this, 'add_vat_number_field' ) );
 		add_action( 'woocommerce_checkout_process', array( $this, 'checkout_process' ) );
 		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'update_checkout_totals' ) );
+		add_action( 'woocommerce_review_order_before_submit', array( $this, 'location_confirmation' ) );
 
 		// Save VAT number in order meta
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'order_data' ), 10, 1 );
@@ -33,12 +34,36 @@ class WC_VIEU_Checkout {
 		);
 	}
 
+	public function location_confirmation() {
+		if ( $this->location_confirmation_required() ) {
+			$location_confirmation_is_checked = isset( $_POST['location_confirmation'] );
+			$countries                        = WC()->countries->get_countries();
+
+			echo '<p class="form-row location_confirmation terms">';
+			echo '<label for="location_confirmation" class="checkbox">' . sprintf( 'I am established, have my permanent address, or usually reside within <strong>%s</strong>.', $countries[ WC()->customer->get_country() ] ) . '</label>';
+			echo '<input type="checkbox" class="input-checkbox" name="location_confirmation"'. checked( $location_confirmation_is_checked, true ) .' id="location_confirmation" />';
+			echo '</p>';
+		}
+	}
+
+	private function location_confirmation_required() {
+		$taxed_country = WC()->customer->get_country();
+
+		$ip_country = $this->get_country_by_ip();
+
+		return ( $taxed_country !== $ip_country );
+	}
+
 	public function checkout_process() {
 		$this->reset();
 
 		$taxed_country = WC()->customer->get_country();
 
 		$ip_country = $this->get_country_by_ip();
+
+		if ( $ip_country !== $taxed_country && empty( $_POST['location_confirmation'] ) ) {
+			wc_add_notice( 'Your IP Address does not match your billing country. Please confirm you are located within your billing country using the checkbox below.', 'error' );
+		}
 
 		if ( empty( $_POST['vat_number'] ) ) {
 			return;
