@@ -10,8 +10,9 @@ class WC_VIEU_Checkout {
 		add_action( 'woocommerce_after_checkout_billing_form', array( $this, 'add_vat_number_field' ) );
 		add_action( 'woocommerce_checkout_process', array( $this, 'checkout_process' ) );
 		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'update_checkout_totals' ) );
+		add_action( 'woocommerce_review_order_before_submit', array( $this, 'location_confirmation' ) );
 
-		// Save VAT number in order meta
+		// Save VAT number and possible IP data in order meta
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'order_data' ), 10, 1 );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'update_order_meta' ), 10, 2 );
 	}
@@ -33,14 +34,40 @@ class WC_VIEU_Checkout {
 		);
 	}
 
-	public function checkout_process() {
-		if ( empty( $_POST['vat_number'] ) ) {
-			return;
-		}
+	public function location_confirmation() {
+		if ( $this->location_confirmation_required() ) {
+			$location_confirmation_is_checked = isset( $_POST['location_confirmation'] );
+			$countries                        = WC()->countries->get_countries();
 
+			echo '<p class="form-row location_confirmation terms">';
+			echo '<label for="location_confirmation" class="checkbox">' . sprintf( 'I am established, have my permanent address, or usually reside within <strong>%s</strong>.', $countries[ WC()->customer->get_country() ] ) . '</label>';
+			echo '<input type="checkbox" class="input-checkbox" name="location_confirmation"'. checked( $location_confirmation_is_checked, true ) .' id="location_confirmation" />';
+			echo '</p>';
+		}
+	}
+
+	private function location_confirmation_required() {
+		$taxed_country = WC()->customer->get_country();
+
+		$ip_country = $this->get_country_by_ip();
+
+		return ( $taxed_country !== $ip_country );
+	}
+
+	public function checkout_process() {
 		$this->reset();
 
 		$taxed_country = WC()->customer->get_country();
+
+		$ip_country = $this->get_country_by_ip();
+
+		if ( $ip_country !== $taxed_country && empty( $_POST['location_confirmation'] ) ) {
+			wc_add_notice( 'Your IP Address does not match your billing country. Please confirm you are located within your billing country using the checkbox below.', 'error' );
+		}
+
+		if ( empty( $_POST['vat_number'] ) ) {
+			return;
+		}
 
 		if ( $this->validate( wc_clean( $_POST['vat_number'] ), $taxed_country ) ) {
 			$this->set_vat_excempt();
@@ -71,6 +98,8 @@ class WC_VIEU_Checkout {
 
 	public function order_data($order) {
 		echo '<p><strong>'.__('VAT Number').':</strong> ' . get_post_meta( $order->id, '_vat_number', true ) . '</p>';
+		$confirmed = get_post_meta( $order->id, '_vat_location_confirmed', true );
+		echo '<p><strong>VAT location confirmation required:</strong> ' . ( empty( $confirmed ) ? 'No' : 'Yes' ) . '</p>';
 	}
 
 	public function update_order_meta( $order_id, $posted ) {
@@ -78,7 +107,14 @@ class WC_VIEU_Checkout {
 			update_post_meta( $order_id, '_vat_number', sanitize_text_field( $_POST['vat_number'] ) );
 		}
 
-		// We can assume that the VAT number has been validated if it is posted since we enforce it to be valid if entered
+		if ( $this->location_confirmation_required() ) {
+			update_post_meta( $order_id, '_vat_location_confirmed', true );
+		} else {
+			update_post_meta( $order_id, '_vat_location_confirmed', false );
+		}
+
+		// We can assume that the VAT number and location have been validated if it is posted since we enforce it to be valid if entered
+		update_post_meta( $order_id, '_vat_location_is_validated', true );
 		update_post_meta( $order_id, '_vat_number_is_validated', true );
 	}
 
@@ -105,6 +141,11 @@ class WC_VIEU_Checkout {
 
 		$validator = new VIEU_VAT_Validator();
 		return $validator->validate_vat($country_code, $vat_number);
+	}
+
+	private function get_country_by_ip() {
+		$geolocate = new VIEU_Geolocate();
+		return $geolocate->geolocate_ip();
 	}
 
 	private function reset() {
