@@ -6,11 +6,17 @@ class VIEU_Admin_Tax_Settings {
 	}
 
 	public function tax_settings( $settings ) {
-		$category_repo = new VIEU_Category_Repository();
+		$api_key = get_option('vieu_api_key');
+
+		$categories = array();
 		$categories[0] = 'Select your category (optional)';
 
-		foreach ( $category_repo->get_categories() as $category ) {
-			$categories[ $category->id ] = $category->name;
+		if ( false !== $api_key && ! empty( $api_key ) ) {
+			$category_repo = new VIEU_Category_Repository();
+
+			foreach ( $category_repo->get_categories() as $category ) {
+				$categories[ $category->id ] = $category->name;
+			}
 		}
 
 		$settings_array = array(
@@ -30,7 +36,7 @@ class VIEU_Admin_Tax_Settings {
 			3 => array(
 				'id' => 'vieu_category',
 				'title' => 'EU VAT Info category',
-				'desc' => 'The rate category that should be used to determine tax rates for your products. If none specified, the standard rates of your customers country will be used.',
+				'desc' => 'The rate category that should be used to determine tax rates for your products. If none specified, the standard rates of your customers country will be used. This list will only be populated when a valid API key is set.',
 				'type' => 'select',
 				'options' => $categories,
 			)
