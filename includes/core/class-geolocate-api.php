@@ -7,7 +7,7 @@ class VIEU_Geolocate_API {
 			'ip' => $ip,
 		) );
 
-		$response = json_decode( $data['body'] );
-		return $response->country;
+		$data = json_decode( $data['body'] );
+		return $data['country'];
 	}
 }
