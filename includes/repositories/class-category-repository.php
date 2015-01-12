@@ -28,11 +28,10 @@ class VIEU_Category_Repository extends VIEU_Abstract_Repository {
 			foreach ( $categories as $category ) {
 				$return_array[] = $category;
 			}
-
-			$this->save_data($return_array);
-			return $return_array;
 		}
 
-		return array();
+		$this->save_data($return_array);
+
+		return $return_array;
 	}
 }

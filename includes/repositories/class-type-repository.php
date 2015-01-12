@@ -28,11 +28,10 @@ class VIEU_Type_Repository extends VIEU_Abstract_Repository {
 			foreach ( $types as $type ) {
 				$return_array[ $type->id ] = $type;
 			}
-
-			$this->save_data($return_array);
-			return $return_array;
 		}
 
-		return array();
+		$this->save_data($return_array);
+
+		return $return_array;
 	}
 }
