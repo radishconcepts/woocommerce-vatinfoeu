@@ -46,10 +46,26 @@ class VIEU_Geolocate {
 		$external_ip_address = get_transient( $transient_name );
 
 		if ( false === $external_ip_address ) {
-			$response = wp_remote_get( 'http://bot.whatismyipaddress.com', array( 'timeout' => 2 ) );
+			$external_ip_address = '0.0.0.0';
 
-			if ( ! is_wp_error( $response ) && $response['body'] ) {
-				$external_ip_address = $response['body'];
+			$services = array(
+				'http://ipv4.icanhazip.com',
+				'http://api.ipify.org/',
+				'http://ipecho.net/plain',
+				'http://v4.ident.me',
+				'http://bot.whatismyipaddress.com',
+				'http://ip.appspot.com'
+			);
+
+			shuffle( $services );
+
+			foreach ( $services as $service ) {
+				$response = wp_remote_get( $service, array( 'timeout' => 2 ) );
+
+				if ( ! is_wp_error( $response ) && $response['body'] ) {
+					$external_ip_address = $response['body'];
+					break;
+				}
 			}
 
 			set_transient( $transient_name, $external_ip_address, WEEK_IN_SECONDS );
