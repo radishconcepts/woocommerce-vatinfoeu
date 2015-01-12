@@ -10,6 +10,10 @@ class WC_VIEU_Checkout {
 		add_action( 'woocommerce_after_checkout_billing_form', array( $this, 'add_vat_number_field' ) );
 		add_action( 'woocommerce_checkout_process', array( $this, 'checkout_process' ) );
 		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'update_checkout_totals' ) );
+
+		// Save VAT number in order meta
+		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'order_data' ), 10, 1 );
+		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'update_order_meta' ), 10, 2 );
 	}
 
 	public function add_vat_number_field() {
@@ -62,6 +66,16 @@ class WC_VIEU_Checkout {
 
 		if ( $this->validate( wc_clean( $vat_number ), $taxed_country ) ) {
 			$this->set_vat_excempt();
+		}
+	}
+
+	public function order_data($order) {
+		echo '<p><strong>'.__('VAT Number').':</strong> ' . get_post_meta( $order->id, '_vat_number', true ) . '</p>';
+	}
+
+	public function update_order_meta( $order_id, $posted ) {
+		if ( ! empty( $_POST['vat_number'] ) ) {
+			update_post_meta( $order_id, '_vat_number', sanitize_text_field( $_POST['vat_number'] ) );
 		}
 	}
 
