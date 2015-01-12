@@ -12,7 +12,7 @@ class WC_VIEU_Checkout {
 		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'update_checkout_totals' ) );
 		add_action( 'woocommerce_review_order_before_submit', array( $this, 'location_confirmation' ) );
 
-		// Save VAT number in order meta
+		// Save VAT number and possible IP data in order meta
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'order_data' ), 10, 1 );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'update_order_meta' ), 10, 2 );
 	}
@@ -98,6 +98,8 @@ class WC_VIEU_Checkout {
 
 	public function order_data($order) {
 		echo '<p><strong>'.__('VAT Number').':</strong> ' . get_post_meta( $order->id, '_vat_number', true ) . '</p>';
+		$confirmed = get_post_meta( $order->id, '_vat_location_confirmed', true );
+		echo '<p><strong>VAT location confirmation required:</strong> ' . ( empty( $confirmed ) ? 'No' : 'Yes' ) . '</p>';
 	}
 
 	public function update_order_meta( $order_id, $posted ) {
@@ -105,7 +107,14 @@ class WC_VIEU_Checkout {
 			update_post_meta( $order_id, '_vat_number', sanitize_text_field( $_POST['vat_number'] ) );
 		}
 
-		// We can assume that the VAT number has been validated if it is posted since we enforce it to be valid if entered
+		if ( $this->location_confirmation_required() ) {
+			update_post_meta( $order_id, '_vat_location_confirmed', true );
+		} else {
+			update_post_meta( $order_id, '_vat_location_confirmed', false );
+		}
+
+		// We can assume that the VAT number and location have been validated if it is posted since we enforce it to be valid if entered
+		update_post_meta( $order_id, '_vat_location_is_validated', true );
 		update_post_meta( $order_id, '_vat_number_is_validated', true );
 	}
 
