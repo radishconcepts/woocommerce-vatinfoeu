@@ -77,6 +77,9 @@ class WC_VIEU_Checkout {
 		if ( ! empty( $_POST['vat_number'] ) ) {
 			update_post_meta( $order_id, '_vat_number', sanitize_text_field( $_POST['vat_number'] ) );
 		}
+
+		// We can assume that the VAT number has been validated if it is posted since we enforce it to be valid if entered
+		update_post_meta( $order_id, '_vat_number_is_validated', true );
 	}
 
 	private function is_valid_eu_country( $country_code ) {
