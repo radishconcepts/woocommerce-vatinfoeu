@@ -77,8 +77,8 @@ class WC_VIEU_Checkout {
 			return false;
 		}
 
-		// @todo Implement actual check for valid VAT number
-		return true;
+		$validator = new VIEU_VAT_Validator();
+		return $validator->validate_vat($country_code, $vat_number);
 	}
 
 	private function reset() {
