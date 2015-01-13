@@ -60,13 +60,15 @@ class WC_VIEU_Checkout {
 		$taxed_country = WC()->customer->get_country();
 
 		if ( ! empty( $_POST['vat_number'] ) ) {
-			if ( $this->validate( wc_clean( $_POST['vat_number'] ), $taxed_country ) ) {
-				$this->set_vat_excempt();
-			} else {
-				wc_add_notice( sprintf( 'The VAT number (%s) is invalid for your billing country.', $_POST['vat_number'] ), 'error' );
-			}
+			if ( $this->is_valid_eu_country( WC()->countries->get_base_country() ) ) {
+				if ( $this->validate( wc_clean( $_POST['vat_number'] ), $taxed_country ) ) {
+					$this->set_vat_excempt();
+				} else {
+					wc_add_notice( sprintf( 'The VAT number (%s) is invalid for your billing country.', $_POST['vat_number'] ), 'error' );
+				}
 
-			return;
+				return;
+			}
 		} else {
 			$ip_country = $this->get_country_by_ip();
 
@@ -92,7 +94,9 @@ class WC_VIEU_Checkout {
 		$taxed_country = ( ! empty( $billing_country ) ) ? $billing_country : '';
 
 		if ( $this->validate( wc_clean( $vat_number ), $taxed_country ) ) {
-			$this->set_vat_excempt();
+			if ( $this->is_valid_eu_country( WC()->countries->get_base_country() ) ) {
+				$this->set_vat_excempt();
+			}
 		}
 	}
 
