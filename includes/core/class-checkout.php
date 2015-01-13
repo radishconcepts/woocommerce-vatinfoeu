@@ -47,11 +47,15 @@ class WC_VIEU_Checkout {
 	}
 
 	private function location_confirmation_required() {
-		$taxed_country = WC()->customer->get_country();
+		if ( $this->cart_has_digital_products() ) {
+			$taxed_country = WC()->customer->get_country();
 
-		$ip_country = $this->get_country_by_ip();
+			$ip_country = $this->get_country_by_ip();
 
-		return ( $taxed_country !== $ip_country );
+			return ( $taxed_country !== $ip_country );
+		}
+
+		return false;
 	}
 
 	public function checkout_process() {
@@ -69,7 +73,7 @@ class WC_VIEU_Checkout {
 
 				return;
 			}
-		} else {
+		} elseif ( $this->location_confirmation_required() ) {
 			$ip_country = $this->get_country_by_ip();
 
 			if ( $ip_country !== $taxed_country && empty( $_POST['location_confirmation'] ) ) {
@@ -120,6 +124,19 @@ class WC_VIEU_Checkout {
 		// We can assume that the VAT number and location have been validated if it is posted since we enforce it to be valid if entered
 		update_post_meta( $order_id, '_vat_location_is_validated', true );
 		update_post_meta( $order_id, '_vat_number_is_validated', true );
+	}
+
+	private function cart_has_digital_products() {
+		if ( WC()->cart->get_cart() ) {
+			foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
+				$_product = $values['data'];
+				if ( ! $_product->needs_shipping() ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	private function is_valid_eu_country( $country_code ) {
